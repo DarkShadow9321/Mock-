@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <title>一頁式網站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #eee;
+            z-index: 100;
+        }
+
+        .logo {
+            font-weight: 700;
+        }
+
+        .nav {
+            display: flex;
+            gap: 16px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sections 通用樣式 */
+        section {
+            padding: 96px 24px;
+        }
+
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto 40px;
+            color: #666;
+        }
+
+        /* ======= Hero：全幅背景輪播＋左側文字 ======= */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            /* 內容靠左 */
+            padding: 0 24px;
+            padding-top: 64px;
+            /* 避開 fixed header */
+            box-sizing: border-box;
+        }
+
+        .hero-bg {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 1s ease-in-out;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right,
+                    rgba(15, 23, 42, 0.55),
+                    rgba(15, 23, 42, 0.30),
+                    rgba(15, 23, 42, 0.15));
+            backdrop-filter: blur(2px);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            color: #fff;
+            text-align: left;
+            margin-left: 40px;
+            /* 控制離左邊的距離，可自行調整 */
+        }
+
+        /* Hero 主標、副標強化版 */
+        .hero-title {
+            font-size: 52px;
+            /* 主標變大 */
+            font-weight: 900;
+            /* 更粗 */
+            line-height: 1.2;
+            color: #ffffff;
+            text-shadow: 0 3px 12px rgba(0, 0, 0, 0.55);
+            margin-bottom: 16px;
+        }
+
+        .hero-desc {
+            font-size: 20px;
+            /* 副標變大 */
+            font-weight: 500;
+            line-height: 1.8;
+            color: #f1f5f9;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+            max-width: 580px;
+            margin-bottom: 24px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .btn-secondary {
+            border: 1px solid #bfdbfe;
+            color: #bfdbfe;
+            background: transparent;
+        }
+
+        /* 兩欄 About */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .two-column img {
+            max-width: 100%;
+            border-radius: 16px;
+        }
+
+        /* 通用 Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #eee;
+            background: #fff;
+        }
+
+        .card-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* 小標籤：景點分類 */
+        .card-tag {
+            display: inline-block;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            margin-bottom: 8px;
+        }
+
+        /* 台中景點專用：更大卡片＋圖片在上方 */
+        .spot-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .spot-cards .card {
+            padding: 0;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+            min-height: 360px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .spot-card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .spot-card-body {
+            padding: 18px 20px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .spot-cards .card-title {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .spot-cards .card-desc {
+            font-size: 15px;
+        }
+
+        .card-link {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .card-link:hover {
+            text-decoration: underline;
+        }
+
+        /* CTA / 聯絡 */
+        .cta {
+            text-align: center;
+            background: #0f172a;
+            color: #fff;
+        }
+
+        /* Footer */
+        footer {
+            padding: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            border-top: 1px solid #eee;
+        }
+
+        /* RWD 調整 */
+        @media (max-width: 768px) {
+            section {
+                padding: 80px 16px;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 96px 16px 48px;
+                /* 上方多留空給 header */
+            }
+
+            .hero-content {
+                margin-left: 0;
+                max-width: 100%;
+            }
+
+            .hero-title {
+                font-size: 34px;
+            }
+
+            .hero-desc {
+                font-size: 17px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo">My Brand</div>
+        <nav class="nav">
+            <a href="#hero">首頁</a>
+            <a href="#spots">台中景點</a>
+            <a href="#contact">聯絡</a>
+        </nav>
+    </header>
+
+    <!-- Hero：背景輪播 -->
+    <section id="hero" class="hero hero-bg">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1 class="hero-title">用最直覺的方式，找到屬於你的台中旅遊風景</h1>
+            <p class="hero-desc">
+                小熊布布旅遊助手，幫你從上百個台中景點中，找到最符合你心裡期待的地方。
+                不論是放鬆、散步、拍照、自然或美食，我們都能替你快速篩選。
+            </p>
+        </div>
+    </section>
+
+    <!-- 台中景點（卡片上方放圖片） -->
+    <section id="spots">
+        <div class="container">
+            <h2 class="section-title">台中旅遊景點精選</h2>
+            <p class="section-subtitle">
+                收錄 15 個台中代表性景點，從海線老宅、山城落羽松到森林系民宿，
+                搭配旅遊 AI 助理就能快速排出專屬行程。
+            </p>
+            <div class="spot-cards">
+                <!-- 1 台中海洋館 -->
+                <div class="card">
+                    <img src="spot01.jpg" alt="台中海洋館" class="spot-card-img">
+                    <div class="spot-card-body">
+                        <div class="card-tag">景點／室內</div>
+                        <h3 class="card-title">台中海洋館</h3>
+                        <p class="card-desc">
+                            以「台中河川流向世界之海」為主題的海洋館，結合水族展示與光影技術，
+                            臨近高美濕地與梧棲漁港，是海線一日遊的新亮點。
+                        </p>
+                        <a class="card-link" href="https://tcaqua.com.tw/" target="_blank" rel="noopener">
+                            官方網站
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 2 本一艸堂 -->
+                <div class="card">
+                    <img src="spot02.jpg" alt="本一艸堂" class="spot-card-img">
+                    <div class="spot-card-body">
+                        <div class="card-tag">餐廳／老宅</div>
+                        <h3 class="card-title">本一艸堂</h3>
+                        <p class="card-desc">
+                            隱身清水牛罵頭文化園區的老屋餐館，提供裸食沙拉、濃湯與在地食材，
+                            適合排進海線文化散步路線。
+                        </p>
+                        <a class="card-link" href="https://www.facebook.com/100066746413879" target="_blank"
+                            rel="noopener">
+                            粉絲專頁（官方）
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 3 牛罵頭文化園區 -->
+                <div class="card">
+                    <img src="spot03.jpg" alt="牛罵頭文化園區" class="spot-card-img">
+                    <div class="spot-card-body">
+                        <div class="card-tag">文化園區／清水</div>
+                        <h3 class="card-title">牛罵頭文化園區</h3>
+                        <p class="card-desc">
+                            臺灣中部重要的史前文化遺址，園區結合遺跡保存與展覽教育，
+                            可以認識清水在地的人文與歷史背景。
+                        </p>
+                        <a class="card-link" href="https://travel.taichung.gov.tw/zh-tw/attractions/intro/970"
+                            target="_blank" rel="noopener">
+                            臺中觀光旅遊網介紹
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 4 羽粼落羽松 -->
+                <div class="card">
+                    <img src="spot04.jpg" alt="羽粼落羽松" class="spot-card-img">
+                    <div class="spot-card-body">
+                        <div class="card-tag">自然／落羽松</div>
+                        <h3 class="card-title">羽粼落羽松</h3>
+                        <p class="card-desc">
+                            后里泰安一帶的季節秘境，成排落羽松映在水面上如同婚紗基地，
+                            秋冬時節最為夢幻，是人氣拍照景點。
+                        </p>
+                        <a class="card-link" href="https://www.facebook.com/100064324891018" target="_blank"
+                            rel="noopener">
+                            園區粉絲專頁
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 5 享自在 生態園區 -->
+                <div class="card">
+                    <img src="spot05.jpg" alt="享自在 生態園區" class="spot-card-img">
+                    <div class="spot-card-body">
+                        <div class="card-tag">景觀餐廳／新社</div>
+                        <h3 class="card-title">享自在 生態園區</h3>
+                        <p class="card-desc">
+                            以落羽松水上步道聞名的森林秘境，園內有多間景觀餐廳與烘焙坊，
+                            木棧道旁伴著水池與鯉魚，是很放鬆的山中去處。
+                        </p>
+                        <a class="card-link" href="https://carefree-park.com/cfpark/" target="_blank" rel="noopener">
+                            官方園區介紹
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 6 沐心泉休閒農場 -->
+                <div class="card">
+                    <img src="spot06.jpg" alt="沐心泉休閒農場" class="spot-card-img">
+                    <div class="spot-card-body">
+                        <div class="card-tag">農場／季節花景</div>
+                        <h3 class="card-title">沐心泉休閒農場</h3>
+                        <p class="card-desc">
+                            新社山區知名花卉農場，四季皆有不同花景，金針花、楓紅與花海分批登場，
+                            很適合安排半日或一日的賞花步調。
+                        </p>
+                        <a class="card-link" href="https://0425931201.mmmtravel.com.tw/" target="_blank" rel="noopener">
+                            官方網站
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 7 八仙山國家森林遊樂區 -->
+                <div class="card">
+                    <img src="spot07.jpg" alt="八仙山國家森林遊樂區" class="spot-card-img">
+                    <div class="spot-card-body">
+                        <div class="card-tag">森林／步道</div>
+                        <h3 class="card-title">八仙山國家森林遊樂區</h3>
+                        <p class="card-desc">
+                            谷關一帶的重要森林遊樂區，擁有多條步道與溪流景觀，
+                            可以體驗森林浴、觀察鳥類與享受山林寧靜。
+                        </p>
+                        <a class="card-link" href="https://recreation.forest.gov.tw/Forest/RA?typ_id=0300002"
+                            target="_blank" rel="noopener">
+                            台灣山林悠遊網資訊
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 8 松泰園藝鹿角蕨 -->
+                <div class="card">
+                    <img src="spot08.jpg" alt="松泰園藝鹿角蕨" class="spot-card-img">
+                    <div class="spot-card-body">
+                        <div class="card-tag">園藝／植物店</div>
+                        <h3 class="card-title">松泰園藝鹿角蕨</h3>
+                        <p class="card-desc">
+                            位於南屯的鹿角蕨專賣店，牆面與空間掛滿不同品種與大小的鹿角蕨，
+                            像走進植物的奇幻世界，深受植栽迷喜愛。
+                        </p>
+                        <a class="card-link" href="https://www.facebook.com/100063630893610" target="_blank"
+                            rel="noopener">
+                            粉絲專頁
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 9 清水眷村文化園區 -->
+                <div class="card">
+                    <img src="spot09.jpg" alt="清水眷村文化園區" class="spot-card-img">
+                    <div class="spot-card-body">
+                        <div class="card-tag">眷村／老屋</div>
+                        <h3 class="card-title">清水眷村文化園區</h3>
+                        <p class="card-desc">
+                            保留老眷村巷弄與建築紋理，結合駐村藝術與展覽活動，
+                            可以感受清水地區的生活記憶與轉型故事。
+                        </p>
+                        <a class="card-link" href="https://www.qingshuiartvillage.net/" target="_blank" rel="noopener">
+                            官方網站
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 10 薰衣草森林・台中新社 -->
+                <div class="card">
+                    <img src="spot10.jpg" alt="薰衣草森林 新社" class="spot-card-img">
+                    <div class="spot-card-body">
+                        <div class="card-tag">森林／主題園區</div>
+                        <h3 class="card-title">薰衣草森林・台中新社</h3>
+                        <p class="card-desc">
+                            以薰衣草與香草為主題的山中花園，園內有步道、咖啡館與許願樹，
+                            很適合慢步感受淺山的療癒氣氛。
+                        </p>
+                        <a class="card-link" href="https://www.lavenderforest.com.tw/zh-tw/trip/xinshe" target="_blank"
+                            rel="noopener">
+                            官方園區介紹
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 11 尋路 台中香草 House -->
+                <div class="card">
+                    <img src="spot11.jpg" alt="尋路 台中香草 House" class="spot-card-img">
+                    <div class="spot-card-body">
+                        <div class="card-tag">民宿／新社</div>
+                        <h3 class="card-title">尋路 台中香草 House</h3>
+                        <p class="card-desc">
+                            位於薰衣草森林園區中的森林系民宿，以香草小旅行為概念，
+                            夜間有旋轉木馬與星空，白天則有香草導覽與體驗活動。
+                        </p>
+                        <a class="card-link" href="https://www.bbnet.com.tw/taichung/reserve/" target="_blank"
+                            rel="noopener">
+                            線上訂房頁
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 12 福壽山農場 -->
+                <div class="card">
+                    <img src="spot12.jpg" alt="福壽山農場" class="spot-card-img">
+                    <div class="spot-card-body">
+                        <div class="card-tag">高山農場／楓紅</div>
+                        <h3 class="card-title">福壽山農場</h3>
+                        <p class="card-desc">
+                            位於高海拔山區，以楓紅、蘋果園與高山景觀聞名，
+                            四季各有不同風貌，是深度山城旅遊的重要據點。
+                        </p>
+                        <a class="card-link" href="https://www.fushoushan.com.tw/" target="_blank" rel="noopener">
+                            官方網站
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 13 審計新村 -->
+                <div class="card">
+                    <img src="spot13.jpg" alt="審計新村" class="spot-card-img">
+                    <div class="spot-card-body">
+                        <div class="card-tag">文創園區／老宿舍</div>
+                        <h3 class="card-title">審計新村</h3>
+                        <p class="card-desc">
+                            由舊省府宿舍群活化而成的文創基地，進駐咖啡店、甜點店與設計選物，
+                            是台中市中心最具代表性的文青散步區。
+                        </p>
+                        <a class="card-link" href="https://travel.taichung.gov.tw/zh-tw/attractions/intro/1139"
+                            target="_blank" rel="noopener">
+                            臺中觀光旅遊網介紹
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 14 霧峰光復新村 -->
+                <div class="card">
+                    <img src="spot14.jpg" alt="霧峰光復新村" class="spot-card-img">
+                    <div class="spot-card-body">
+                        <div class="card-tag">眷村／花園城市</div>
+                        <h3 class="card-title">霧峰光復新村</h3>
+                        <p class="card-desc">
+                            以「英式花園城市」概念打造的早期新市鎮，街區保留大量綠蔭與老房子，
+                            現為青年創業與文創聚落，充滿拍照與散步的角落。
+                        </p>
+                        <a class="card-link" href="https://travel.taichung.gov.tw/zh-tw/attractions/intro/962"
+                            target="_blank" rel="noopener">
+                            臺中觀光旅遊網介紹
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 15 臺中國家歌劇院 -->
+                <div class="card">
+                    <img src="spot15.jpg" alt="臺中國家歌劇院" class="spot-card-img">
+                    <div class="spot-card-body">
+                        <div class="card-tag">建築／表演藝術</div>
+                        <h3 class="card-title">臺中國家歌劇院</h3>
+                        <p class="card-desc">
+                            由伊東豊雄設計的曲線建築地標，結合表演藝術、公共空間與餐飲，
+                            白天可欣賞建築與展覽，夜晚則是城市夜景亮點。
+                        </p>
+                        <a class="card-link" href="https://www.npac-ntt.org/" target="_blank" rel="noopener">
+                            官方網站
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact / CTA -->
+    <section id="contact" class="cta">
+        <div class="container">
+            <h2 class="section-title">準備好開始享受旅遊了嗎？</h2>
+            <a href="https://line.me/xxx" class="btn-primary">透過 LINE 聯絡我們</a>
+        </div>
+    </section>
+
+    <footer>
+        © 2025 My Brand. All rights reserved.
+    </footer>
+
+    <!-- Hero 背景輪播腳本 -->
+    <script>
+        const bgImages = [
+            "spot01.jpg",
+            "spot02.jpg",
+            "spot03.jpg",
+            "spot04.jpg",
+            "spot05.jpg",
+            "spot06.jpg",
+            "spot07.jpg",
+            "spot08.jpg",
+            "spot09.jpg",
+            "spot10.jpg",
+            "spot11.jpg",
+            "spot12.jpg",
+            "spot13.jpg",
+            "spot14.jpg",
+            "spot15.jpg"
+        ];
+
+        let bgIndex = 0;
+        const hero = document.querySelector('.hero-bg');
+
+        // 初始化第一張背景
+        hero.style.backgroundImage = `url(${bgImages[0]})`;
+
+        // 每 4 秒切換背景
+        setInterval(() => {
+            bgIndex = (bgIndex + 1) % bgImages.length;
+            hero.style.backgroundImage = `url(${bgImages[bgIndex]})`;
+        }, 4000);
+    </script>
+
+</body>
+
+</html>
