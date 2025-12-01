@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "image": "spot01.jpg",
+    "alt": "台中海洋館",
+    "tag": "景點／室內",
+    "title": "台中海洋館",
+    "desc": "以「台中河川流向世界之海」為主題的海洋館，結合水族展示與光影技術，臨近高美濕地與梧棲漁港，是海線一日遊的新亮點。",
+    "link": "https://tcaqua.com.tw/",
+    "linkLabel": "官方網站"
+  },
+  {
+    "id": 2,
+    "image": "spot02.jpg",
+    "alt": "本一艸堂",
+    "tag": "餐廳／老宅",
+    "title": "本一艸堂",
+    "desc": "隱身清水牛罵頭文化園區的老屋餐館，提供裸食沙拉、濃湯與在地食材，適合排進海線文化散步路線。",
+    "link": "https://www.facebook.com/100066746413879",
+    "linkLabel": "粉絲專頁（官方）"
+  },
+  {
+    "id": 3,
+    "image": "spot03.jpg",
+    "alt": "牛罵頭文化園區",
+    "tag": "文化園區／清水",
+    "title": "牛罵頭文化園區",
+    "desc": "臺灣中部重要的史前文化遺址，園區結合遺跡保存與展覽教育，可以認識清水在地的人文與歷史背景。",
+    "link": "https://travel.taichung.gov.tw/zh-tw/attractions/intro/970",
+    "linkLabel": "臺中觀光旅遊網介紹"
+  },
+  {
+    "id": 4,
+    "image": "spot04.jpg",
+    "alt": "羽粼落羽松",
+    "tag": "自然／落羽松",
+    "title": "羽粼落羽松",
+    "desc": "后里泰安一帶的季節秘境，成排落羽松映在水面上如同婚紗基地，秋冬時節最為夢幻，是人氣拍照景點。",
+    "link": "https://www.facebook.com/100064324891018",
+    "linkLabel": "園區粉絲專頁"
+  },
+  {
+    "id": 5,
+    "image": "spot05.jpg",
+    "alt": "享自在 生態園區",
+    "tag": "景觀餐廳／新社",
+    "title": "享自在 生態園區",
+    "desc": "以落羽松水上步道聞名的森林秘境，園內有多間景觀餐廳與烘焙坊，木棧道旁伴著水池與鯉魚，是很放鬆的山中去處。",
+    "link": "https://carefree-park.com/cfpark/",
+    "linkLabel": "官方園區介紹"
+  },
+  {
+    "id": 6,
+    "image": "spot06.jpg",
+    "alt": "沐心泉休閒農場",
+    "tag": "農場／季節花景",
+    "title": "沐心泉休閒農場",
+    "desc": "新社山區知名花卉農場，四季皆有不同花景，金針花、楓紅與花海分批登場，很適合安排半日或一日的賞花步調。",
+    "link": "https://0425931201.mmmtravel.com.tw/",
+    "linkLabel": "官方網站"
+  },
+  {
+    "id": 7,
+    "image": "spot07.jpg",
+    "alt": "八仙山國家森林遊樂區",
+    "tag": "森林／步道",
+    "title": "八仙山國家森林遊樂區",
+    "desc": "谷關一帶的重要森林遊樂區，擁有多條步道與溪流景觀，可以體驗森林浴、觀察鳥類與享受山林寧靜。",
+    "link": "https://recreation.forest.gov.tw/Forest/RA?typ_id=0300002",
+    "linkLabel": "台灣山林悠遊網資訊"
+  },
+  {
+    "id": 8,
+    "image": "spot08.jpg",
+    "alt": "松泰園藝鹿角蕨",
+    "tag": "園藝／植物店",
+    "title": "松泰園藝鹿角蕨",
+    "desc": "位於南屯的鹿角蕨專賣店，牆面與空間掛滿不同品種與大小的鹿角蕨，像走進植物的奇幻世界，深受植栽迷喜愛。",
+    "link": "https://www.facebook.com/100063630893610",
+    "linkLabel": "粉絲專頁"
+  },
+  {
+    "id": 9,
+    "image": "spot09.jpg",
+    "alt": "清水眷村文化園區",
+    "tag": "眷村／老屋",
+    "title": "清水眷村文化園區",
+    "desc": "保留老眷村巷弄與建築紋理，結合駐村藝術與展覽活動，可以感受清水地區的生活記憶與轉型故事。",
+    "link": "https://www.qingshuiartvillage.net/",
+    "linkLabel": "官方網站"
+  },
+  {
+    "id": 10,
+    "image": "spot10.jpg",
+    "alt": "薰衣草森林・台中新社",
+    "tag": "森林／主題園區",
+    "title": "薰衣草森林・台中新社",
+    "desc": "以薰衣草與香草為主題的山中花園，園內有步道、咖啡館與許願樹，很適合慢步感受淺山的療癒氣氛。",
+    "link": "https://www.lavenderforest.com.tw/zh-tw/trip/xinshe",
+    "linkLabel": "官方園區介紹"
+  },
+  {
+    "id": 11,
+    "image": "spot11.jpg",
+    "alt": "尋路 台中香草 House",
+    "tag": "民宿／新社",
+    "title": "尋路 台中香草 House",
+    "desc": "位於薰衣草森林園區中的森林系民宿，以香草小旅行為概念，夜間有旋轉木馬與星空，白天則有香草導覽與體驗活動。",
+    "link": "https://www.bbnet.com.tw/taichung/reserve/",
+    "linkLabel": "線上訂房頁"
+  },
+  {
+    "id": 12,
+    "image": "spot12.jpg",
+    "alt": "福壽山農場",
+    "tag": "高山農場／楓紅",
+    "title": "福壽山農場",
+    "desc": "位於高海拔山區，以楓紅、蘋果園與高山景觀聞名，四季各有不同風貌，是深度山城旅遊的重要據點。",
+    "link": "https://www.fushoushan.com.tw/",
+    "linkLabel": "官方網站"
+  },
+  {
+    "id": 13,
+    "image": "spot13.jpg",
+    "alt": "審計新村",
+    "tag": "文創園區／老宿舍",
+    "title": "審計新村",
+    "desc": "由舊省府宿舍群活化而成的文創基地，進駐咖啡店、甜點店與設計選物，是台中市中心最具代表性的文青散步區。",
+    "link": "https://travel.taichung.gov.tw/zh-tw/attractions/intro/1139",
+    "linkLabel": "臺中觀光旅遊網介紹"
+  },
+  {
+    "id": 14,
+    "image": "spot14.jpg",
+    "alt": "霧峰光復新村",
+    "tag": "眷村／花園城市",
+    "title": "霧峰光復新村",
+    "desc": "以「英式花園城市」概念打造的早期新市鎮，街區保留大量綠蔭與老房子，現為青年創業與文創聚落，充滿拍照與散步的角落。",
+    "link": "https://travel.taichung.gov.tw/zh-tw/attractions/intro/962",
+    "linkLabel": "臺中觀光旅遊網介紹"
+  },
+  {
+    "id": 15,
+    "image": "spot15.jpg",
+    "alt": "臺中國家歌劇院",
+    "tag": "建築／表演藝術",
+    "title": "臺中國家歌劇院",
+    "desc": "由伊東豊雄設計的曲線建築地標，結合表演藝術、公共空間與餐飲，白天可欣賞建築與展覽，夜晚則是城市夜景亮點。",
+    "link": "https://www.npac-ntt.org/",
+    "linkLabel": "官方網站"
+  }
+]
